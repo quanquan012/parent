@@ -1,7 +1,0 @@
-
-bsquid:S2118"AMake the "java.util.List" class "Serializable" or don't write it.(÷éÔ•øÿÿÿÿ8¥Ñ «ê,
-Nsquid:S1905"-Remove this unnecessary cast to "BeanCopier".(Ë©äŒúÿÿÿÿ8ã­±«ê,
-}squid:S1488"\Immediately return this expression instead of assigning it to the temporary variable "dest".(ØÛÇİùÿÿÿÿ8¥Ñ «ê,
-osquid:S3824"NReplace this "Map.get()" and condition with a call to "Map.computeIfAbsent()".(Ë©äŒúÿÿÿÿ8ã­±«ê,
-squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ûı¤®8¥Ñ «ê,
-9squid:S1118"Hide this public constructor.(ûı¤®8¥Ñ «ê,
