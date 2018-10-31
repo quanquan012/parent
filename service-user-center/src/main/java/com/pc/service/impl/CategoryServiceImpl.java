@@ -15,7 +15,7 @@ import java.util.List;
  * @date: 2018/10/30 17:06
  */
 @Service
-public class CategoryServiceImpl extends BaseServiceImpl<CategoryDto, CategoryDao> implements CategoryService {
+public class CategoryServiceImpl extends BaseServiceImpl<CategoryDto, Category, CategoryDao> implements CategoryService {
 
     @Override
     public List<CategoryDto> listCategoriesByType(String categoryType) {

@@ -8,65 +8,67 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
 
 /**
  * @author: li.hao
  * @date: 2018/10/31 10:20
  */
-public abstract class BaseController<D extends BaseDto, S extends BaseService> {
+public abstract class BaseController<A extends BaseAo, T extends BaseDto, S extends BaseService<T>> {
 
     @Autowired
     protected S service;
 
-    private Type model;
+    private Class<A> aoClazz;
+
+    private Class<T> dtoClazz;
 
     protected void currentModleClass() {
-        if (null == model) {
-            this.model = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        if (null == aoClazz) {
+            this.aoClazz = (Class<A>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        }
+        if (null == dtoClazz) {
+            this.dtoClazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         }
     }
 
 
     @GetMapping
-    public <T extends BaseDto> List<T> list() {
+    public List<? extends BaseDto> list() {
         return listAll();
     }
 
     @PostMapping
-    public <T extends BaseAo> void save(@RequestBody T t) {
-        insert(t);
+    public void save(@RequestBody A a) {
+        insert(a);
     }
 
     @PutMapping
-    public <T extends BaseAo> void update(@RequestBody T t) {
-        modify(t);
+    public void update(@RequestBody A a) {
+        modify(a);
     }
 
     @DeleteMapping(value = "/{id}")
-    public <T extends BaseDto> void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") Long id) {
         deleteByPrimaryKey(id);
     }
 
-    protected <T extends BaseDto> List<T> listAll() {
+    protected List<T> listAll() {
         return service.list();
     }
 
-    protected <T extends BaseAo> void insert(T t) {
+    protected void insert(A a) {
         currentModleClass();
-        service.save(CopyUtils.copyObject(t, (Class<D>) model));
+        service.save(CopyUtils.copyObject(a, dtoClazz));
     }
 
-    protected <T extends BaseAo> void modify(T t) {
+    protected void modify(A a) {
         currentModleClass();
-        service.update(CopyUtils.copyObject(t, (Class<D>) model));
+        service.update(CopyUtils.copyObject(a, dtoClazz));
     }
 
-    protected <T extends BaseDto> void deleteByPrimaryKey(Long id) {
-        BaseDto dto = new BaseDto();
-        dto.setPrimaryKey(id);
-        service.delete((T) dto);
+    protected void deleteByPrimaryKey(Long id) {
+        service.delete(id);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.common.base.service;
 
+
 import com.common.base.model.BaseDto;
 
 import java.util.List;
@@ -12,6 +13,6 @@ public interface BaseService<T extends BaseDto> {
 
     void update(T t);
 
-    void delete(T t);
+    void delete(Long id);
 
 }

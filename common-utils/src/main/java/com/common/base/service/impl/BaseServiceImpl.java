@@ -8,19 +8,23 @@ import com.common.utils.model.CopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
 
-public abstract class BaseServiceImpl<T extends BaseDto, M extends BaseDao> implements BaseService<T> {
+public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M extends BaseDao<D>> implements BaseService<T> {
 
     @Autowired
     protected M mapper;
 
-    private Type model;
+    private Class<T> dtoClazz;
+
+    private Class<D> modelClazz;
 
     protected void currentModleClass() {
-        if (null == model) {
-            this.model = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        if (null == dtoClazz) {
+            this.dtoClazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        }
+        if (null == modelClazz) {
+            this.modelClazz = (Class<D>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         }
     }
 
@@ -28,27 +32,34 @@ public abstract class BaseServiceImpl<T extends BaseDto, M extends BaseDao> impl
     public List<T> list() {
         List<? extends BaseModel> list = mapper.selectAll();
         currentModleClass();
-        return CopyUtils.copyList(list, (Class<T>) model);
+        return CopyUtils.copyList(list, dtoClazz);
     }
 
     @Override
     public void save(T dto) {
         currentModleClass();
-        mapper.insert(CopyUtils.copyObject(dto, (Class<T>) model));
+        mapper.insert(CopyUtils.copyObject(dto, modelClazz));
     }
 
     @Override
     public void update(T dto) {
-        if (null != dto.getPrimaryKey()) {
-            currentModleClass();
-            mapper.updateByPrimaryKey(CopyUtils.copyObject(dto, (Class<T>) model));
-        }
+        currentModleClass();
+        mapper.updateByPrimaryKey(CopyUtils.copyObject(dto, modelClazz));
     }
 
     @Override
-    public void delete(T dto) {
+    public void delete(Long id) {
         currentModleClass();
-        mapper.deleteByPrimaryKey(CopyUtils.copyObject(dto, (Class<T>) model));
+        BaseModel baseModel = null;
+        try {
+            baseModel = modelClazz.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        baseModel.setPrimaryKey(id);
+        mapper.deleteByPrimaryKey(baseModel);
     }
 
 }
