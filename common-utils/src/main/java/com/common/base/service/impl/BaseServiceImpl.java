@@ -11,20 +11,44 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public abstract class BaseServiceImpl<T extends BaseDto, B extends BaseDao<? extends BaseModel>> implements BaseService {
+public abstract class BaseServiceImpl<T extends BaseDto, M extends BaseDao> implements BaseService<T> {
 
     @Autowired
-    private B mapper;
+    protected M mapper;
+
+    private Type model;
+
+    protected void currentModleClass() {
+        if (null == model) {
+            this.model = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        }
+    }
 
     @Override
-    public List<T> list(){
+    public List<T> list() {
         List<? extends BaseModel> list = mapper.selectAll();
-        Type type = ((ParameterizedType)list.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        return CopyUtils.copyList(list, (Class<T>)type);
+        currentModleClass();
+        return CopyUtils.copyList(list, (Class<T>) model);
     }
 
     @Override
-    public void delete(Long id){
-
+    public void save(T dto) {
+        currentModleClass();
+        mapper.insert(CopyUtils.copyObject(dto, (Class<T>) model));
     }
+
+    @Override
+    public void update(T dto) {
+        if (null != dto.getPrimaryKey()) {
+            currentModleClass();
+            mapper.updateByPrimaryKey(CopyUtils.copyObject(dto, (Class<T>) model));
+        }
+    }
+
+    @Override
+    public void delete(T dto) {
+        currentModleClass();
+        mapper.deleteByPrimaryKey(CopyUtils.copyObject(dto, (Class<T>) model));
+    }
+
 }

@@ -4,7 +4,6 @@ import com.common.base.model.BaseModel;
 import lombok.Data;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
 
 /**
  * @author: li.hao
@@ -12,9 +11,6 @@ import javax.persistence.Id;
  */
 @Data
 public class Merchant extends BaseModel {
-
-    @Id
-    private Long merchantId;
 
     @Column(name = "merchant_name")
     private String merchantName;

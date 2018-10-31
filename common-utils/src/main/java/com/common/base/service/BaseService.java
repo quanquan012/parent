@@ -12,6 +12,6 @@ public interface BaseService<T extends BaseDto> {
 
     void update(T t);
 
-    void delete(Long id);
+    void delete(T t);
 
 }

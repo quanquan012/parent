@@ -14,9 +14,6 @@ import java.math.BigDecimal;
 @Data
 public class Merchandise extends BaseModel {
 
-    @Id
-    private Long merchandiseId;
-
     @Column(name = "merchant_code")
     private String merchantCode;
 

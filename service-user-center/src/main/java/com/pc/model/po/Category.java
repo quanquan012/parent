@@ -13,9 +13,6 @@ import javax.persistence.Id;
 @Data
 public class Category extends BaseModel {
 
-    @Id
-    private Long categoryId;
-
     @Column(name = "category_name")
     private String categoryName;
 

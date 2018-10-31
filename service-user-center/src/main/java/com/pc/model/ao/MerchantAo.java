@@ -1,11 +1,10 @@
 package com.pc.model.ao;
 
+import com.common.base.model.BaseAo;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
-public class MerchantAo implements Serializable {
+public class MerchantAo extends BaseAo {
 
     private Long merchantId;
 

@@ -1,12 +1,12 @@
 package com.pc.model.ao;
 
+import com.common.base.model.BaseAo;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class MerchandiseAo implements Serializable {
+public class MerchandiseAo extends BaseAo {
 
     private Long merchandiseId;
 

@@ -9,13 +9,13 @@ import org.testng.annotations.Test;
 /**
  * @author: li.hao
  * @date: 2018/10/25 09:19
-        */
-    public class UserDaoTest extends BaseTestNG {
-        @Autowired
-        private UserDao mapper;
+ */
+public class UserDaoTest extends BaseTestNG {
+    @Autowired
+    private UserDao mapper;
 
     @Test
-    public void updateUserByOpenId(){
+    public void updateUserByOpenId() {
         User user = new User();
         user.setOpenId("1001");
         user.setPhone("15567861122");

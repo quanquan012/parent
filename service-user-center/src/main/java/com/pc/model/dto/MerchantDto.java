@@ -1,11 +1,10 @@
 package com.pc.model.dto;
 
+import com.common.base.model.BaseDto;
 import lombok.Data;
 
 @Data
-public class MerchantDto {
-
-    private Long merchantId;
+public class MerchantDto extends BaseDto {
 
     private String merchantName;
 

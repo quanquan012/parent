@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pc.dao.CategoryDao">
+
+    <resultMap id="categoryMap" type="com.pc.model.po.Category">
+        <id column="primary_key" jdbcType="BIGINT" property="primaryKey" />
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+        <result column="category_code" jdbcType="VARCHAR" property="categoryCode" />
+        <result column="category_type" jdbcType="VARCHAR" property="categoryType" />
+        <result column="open_id" jdbcType="VARCHAR" property="openId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+
+    <select id="listCategoriesByType" parameterType="java.lang.String" resultMap="categoryMap">
+      select * from category where category_type = #{categoryType}
+    </select>
+
+</mapper>

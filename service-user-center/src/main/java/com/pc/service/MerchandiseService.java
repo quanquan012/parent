@@ -1,4 +1,7 @@
 package com.pc.service;
 
-public interface MerchandiseService {
+import com.common.base.service.BaseService;
+import com.pc.model.dto.MerchandiseDto;
+
+public interface MerchandiseService extends BaseService<MerchandiseDto> {
 }

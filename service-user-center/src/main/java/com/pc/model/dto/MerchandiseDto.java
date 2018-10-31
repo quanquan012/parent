@@ -1,12 +1,11 @@
 package com.pc.model.dto;
 
+import com.common.base.model.BaseDto;
 import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class MerchandiseDto {
-
-    private Long merchandiseId;
+public class MerchandiseDto extends BaseDto {
 
     private String merchantCode;
 

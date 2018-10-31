@@ -9,10 +9,10 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @author: li.hao
  * @date: 2018/10/30 14:03
  */
-@Configuration
+//@Configuration
 public class RedisConfiguration<K, V> {
 
-    @Bean
+    /*@Bean
     public RedisTemplate redisTemplate(){
         RedisTemplate<K, V> template = new RedisTemplate();
         template.setConnectionFactory(redisConnectionFactory());
@@ -22,6 +22,6 @@ public class RedisConfiguration<K, V> {
     @Bean
     public JedisConnectionFactory redisConnectionFactory() {
         return new JedisConnectionFactory();
-    }
+    }*/
 
 }

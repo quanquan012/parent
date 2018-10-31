@@ -1,17 +1,14 @@
 package com.pc.model.ao;
 
+import com.common.base.model.BaseAo;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * @author: li.hao
  * @date: 2018/10/30 17:29
  */
 @Data
-public class CategoryAo implements Serializable {
-
-    private Long categoryId;
+public class CategoryAo extends BaseAo {
 
     private String categoryName;
 
