@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: service-zuul
+
+server:
+  port: 8090
+
+eureka:
+  instance:
+    hostName: localhost
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+  client:
+    healthcheck:
+      enabled: false
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
+
+zuul:
+  routes:
+    usercenter:
+      path: /usercenter/**
+      serviceId: service-user-center

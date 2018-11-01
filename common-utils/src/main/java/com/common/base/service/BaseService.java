@@ -9,10 +9,10 @@ public interface BaseService<T extends BaseDto> {
 
     List<T> list();
 
-    void save(T t);
+    int save(T t);
 
-    void update(T t);
+    int update(T t);
 
-    void delete(Long id);
+    int delete(Long id);
 
 }

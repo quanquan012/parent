@@ -36,19 +36,19 @@ public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M 
     }
 
     @Override
-    public void save(T dto) {
+    public int save(T dto) {
         currentModleClass();
-        mapper.insert(CopyUtils.copyObject(dto, modelClazz));
+        return mapper.insert(CopyUtils.copyObject(dto, modelClazz));
     }
 
     @Override
-    public void update(T dto) {
+    public int update(T dto) {
         currentModleClass();
-        mapper.updateByPrimaryKey(CopyUtils.copyObject(dto, modelClazz));
+        return mapper.updateByPrimaryKey(CopyUtils.copyObject(dto, modelClazz));
     }
 
     @Override
-    public void delete(Long id) {
+    public int delete(Long id) {
         currentModleClass();
         BaseModel baseModel = null;
         try {
@@ -59,7 +59,7 @@ public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M 
             e.printStackTrace();
         }
         baseModel.setPrimaryKey(id);
-        mapper.deleteByPrimaryKey(baseModel);
+        return mapper.deleteByPrimaryKey(baseModel);
     }
 
 }

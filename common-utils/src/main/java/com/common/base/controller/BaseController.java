@@ -3,6 +3,8 @@ package com.common.base.controller;
 import com.common.base.model.BaseAo;
 import com.common.base.model.BaseDto;
 import com.common.base.service.BaseService;
+import com.common.web.Message;
+import com.common.web.MessageConstant;
 import com.common.utils.model.CopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,7 @@ import java.util.List;
  * @author: li.hao
  * @date: 2018/10/31 10:20
  */
-public abstract class BaseController<A extends BaseAo, T extends BaseDto, S extends BaseService<T>> {
+public abstract class BaseController<A extends BaseAo, T extends BaseDto, S extends BaseService<T>> extends StandardController {
 
     @Autowired
     protected S service;
@@ -32,43 +34,51 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
         }
     }
 
-
     @GetMapping
-    public List<? extends BaseDto> list() {
-        return listAll();
+    public Message list() {
+        return successMessage(listAll());
     }
 
     @PostMapping
-    public void save(@RequestBody A a) {
-        insert(a);
+    public Message save(@RequestBody A a) {
+        if (insert(a) > 0){
+            return successMessage(MessageConstant.MESSAGE_SUCCESS_SAVE);
+        }
+        return warnMessage(MessageConstant.MESSAGE_ERROR_SAVE);
     }
 
     @PutMapping
-    public void update(@RequestBody A a) {
-        modify(a);
+    public Message update(@RequestBody A a) {
+        if (modify(a) > 0){
+            return successMessage(MessageConstant.MESSAGE_SUCCESS_UPDATE);
+        }
+        return warnMessage(MessageConstant.MESSAGE_ERROR_UPDATE);
     }
 
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        deleteByPrimaryKey(id);
+    public Message delete(@PathVariable("id") Long id) {
+        if (deleteByPrimaryKey(id) > 0){
+            return successMessage(MessageConstant.MESSAGE_SUCCESS_DELETE);
+        }
+        return warnMessage(MessageConstant.MESSAGE_ERROR_DELETE);
     }
 
     protected List<T> listAll() {
         return service.list();
     }
 
-    protected void insert(A a) {
+    protected int insert(A a) {
         currentModleClass();
-        service.save(CopyUtils.copyObject(a, dtoClazz));
+        return service.save(CopyUtils.copyObject(a, dtoClazz));
     }
 
-    protected void modify(A a) {
+    protected int modify(A a) {
         currentModleClass();
-        service.update(CopyUtils.copyObject(a, dtoClazz));
+        return service.update(CopyUtils.copyObject(a, dtoClazz));
     }
 
-    protected void deleteByPrimaryKey(Long id) {
-        service.delete(id);
+    protected int deleteByPrimaryKey(Long id) {
+        return service.delete(id);
     }
 
 }
