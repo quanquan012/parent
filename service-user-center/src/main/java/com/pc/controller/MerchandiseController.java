@@ -4,12 +4,10 @@ import com.common.base.controller.BaseController;
 import com.pc.model.ao.MerchandiseAo;
 import com.pc.model.dto.MerchandiseDto;
 import com.pc.service.MerchandiseService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @program: parent
- * @description:
- * @author: li.hao
- * @date: 2018/10/31 13:10
- */
+@RestController
+@RequestMapping("/merchandises")
 public class MerchandiseController extends BaseController<MerchandiseAo, MerchandiseDto, MerchandiseService> {
 }

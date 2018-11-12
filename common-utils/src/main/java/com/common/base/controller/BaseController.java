@@ -1,11 +1,15 @@
 package com.common.base.controller;
 
+import com.common.base.condition.Conditions;
+import com.common.base.condition.Order;
+import com.common.base.condition.SearchFilter;
 import com.common.base.model.BaseAo;
 import com.common.base.model.BaseDto;
 import com.common.base.service.BaseService;
 import com.common.web.Message;
 import com.common.web.MessageConstant;
 import com.common.utils.model.CopyUtils;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +38,11 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
         }
     }
 
+    @GetMapping(params = "type=page")
+    public Message page(A a) {
+        return successMessage(searchPage(a));
+    }
+
     @GetMapping
     public Message list() {
         return successMessage(listAll());
@@ -41,7 +50,7 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
 
     @PostMapping
     public Message save(@RequestBody A a) {
-        if (insert(a) > 0){
+        if (null != insert(a)) {
             return successMessage(MessageConstant.MESSAGE_SUCCESS_SAVE);
         }
         return warnMessage(MessageConstant.MESSAGE_ERROR_SAVE);
@@ -49,7 +58,7 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
 
     @PutMapping
     public Message update(@RequestBody A a) {
-        if (modify(a) > 0){
+        if (null != modify(a)) {
             return successMessage(MessageConstant.MESSAGE_SUCCESS_UPDATE);
         }
         return warnMessage(MessageConstant.MESSAGE_ERROR_UPDATE);
@@ -57,28 +66,53 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
 
     @DeleteMapping(value = "/{id}")
     public Message delete(@PathVariable("id") Long id) {
-        if (deleteByPrimaryKey(id) > 0){
+        if (deleteByPrimaryKey(id) > 0) {
             return successMessage(MessageConstant.MESSAGE_SUCCESS_DELETE);
         }
         return warnMessage(MessageConstant.MESSAGE_ERROR_DELETE);
     }
 
+    protected PageInfo<T> searchPage(A a){
+        currentModleClass();
+        return service.page(CopyUtils.copyObject(a, dtoClazz), pageConditions(a));
+    }
+
     protected List<T> listAll() {
-        return service.list();
+        return service.selectList(searchConditions());
     }
 
-    protected int insert(A a) {
+    protected T insert(A a) {
         currentModleClass();
-        return service.save(CopyUtils.copyObject(a, dtoClazz));
+        return service.insert(CopyUtils.copyObject(a, dtoClazz));
     }
 
-    protected int modify(A a) {
+    protected T modify(A a) {
         currentModleClass();
-        return service.update(CopyUtils.copyObject(a, dtoClazz));
+        return service.update(CopyUtils.copyObject(a, dtoClazz), null);
     }
 
     protected int deleteByPrimaryKey(Long id) {
-        return service.delete(id);
+        return service.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 数据条件查询 子类自行实现
+     *
+     * @return 条件查询
+     */
+    protected Conditions searchConditions(){
+        return null;
+    }
+
+    /**
+     * 数据创建日期倒序
+     *
+     * @return 分页查询条件
+     */
+    protected Conditions pageConditions(A a){
+        Conditions conditions = new Conditions();
+        conditions.addOrders(Order.desc(BaseAo.CREATE_TIME));
+        return conditions;
     }
 
 }

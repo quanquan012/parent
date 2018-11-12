@@ -11,4 +11,5 @@ import tk.mybatis.mapper.common.Mapper;
  * @date : 2018/10/30
  */
 public interface BaseDao<T extends BaseModel> extends Mapper<T> {
+
 }
