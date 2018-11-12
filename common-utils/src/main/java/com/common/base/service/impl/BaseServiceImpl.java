@@ -42,8 +42,7 @@ public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M 
 
     @Override
     public PageInfo<T> page(T t, Conditions conditions) {
-        currentModelClass();
-        PageInfo<T> pageInfo = PageHelper.startPage(conditions.getPageNum(), conditions.getPageSize()).doSelectPageInfo(() -> mapper.select(CopyUtils.copyObject(t, modelClazz)));
+        PageInfo<T> pageInfo = PageHelper.startPage(conditions.getPageNum(), conditions.getPageSize()).doSelectPageInfo(() -> mapper.selectByExample(getExampleByConditions(conditions)));
         return pageInfo;
     }
 
