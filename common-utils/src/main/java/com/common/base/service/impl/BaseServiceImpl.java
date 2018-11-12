@@ -31,7 +31,7 @@ public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M 
 
     private Class<D> modelClazz;
 
-    protected void currentModleClass() {
+    protected void currentModelClass() {
         if (null == dtoClazz) {
             this.dtoClazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         }
@@ -42,29 +42,28 @@ public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M 
 
     @Override
     public PageInfo<T> page(T t, Conditions conditions) {
-        currentModleClass();
-        PageInfo<T> pageInfo = PageHelper.startPage(t.getPageNum(), t.getPageSize()).doSelectPageInfo(() -> mapper.select(CopyUtils.copyObject(t, modelClazz)));
+        currentModelClass();
+        PageInfo<T> pageInfo = PageHelper.startPage(conditions.getPageNum(), conditions.getPageSize()).doSelectPageInfo(() -> mapper.select(CopyUtils.copyObject(t, modelClazz)));
         return pageInfo;
     }
 
     @Override
     public List<T> selectAll() {
         List<? extends BaseModel> list = mapper.selectAll();
-        currentModleClass();
+        currentModelClass();
         return CopyUtils.copyList(list, dtoClazz);
     }
 
     @Override
     public List<T> selectList(Conditions conditions) {
         List<? extends BaseModel> list = mapper.selectByExample(getExampleByConditions(conditions));
-        currentModleClass();
         return CopyUtils.copyList(list, dtoClazz);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public T insert(T dto) {
-        currentModleClass();
+        currentModelClass();
         int result = mapper.insertSelective(CopyUtils.copyObject(dto, modelClazz));
         if (result > 0) {
             return CopyUtils.copyObject(mapper.selectByPrimaryKey(result), dtoClazz);
@@ -79,7 +78,6 @@ public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public T update(T dto, Conditions conditions) {
-        currentModleClass();
         int result = mapper.updateByExample(CopyUtils.copyObject(dto, modelClazz), getExampleByConditions(conditions));
         if (result > 0) {
             return CopyUtils.copyObject(mapper.select(CopyUtils.copyObject(dto, modelClazz)), dtoClazz);
@@ -105,6 +103,7 @@ public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M 
     }
 
     protected Example getExampleByConditions(Conditions conditions) {
+        currentModelClass();
         Example example = new Example(modelClazz);
         if (null != conditions) {
             if (!conditions.getSearchFilters().isEmpty()) {

@@ -29,7 +29,7 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
 
     private Class<T> dtoClazz;
 
-    protected void currentModleClass() {
+    protected void currentModelClass() {
         if (null == aoClazz) {
             this.aoClazz = (Class<A>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         }
@@ -73,7 +73,7 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
     }
 
     protected PageInfo<T> searchPage(A a){
-        currentModleClass();
+        currentModelClass();
         return service.page(CopyUtils.copyObject(a, dtoClazz), pageConditions(a));
     }
 
@@ -82,12 +82,12 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
     }
 
     protected T insert(A a) {
-        currentModleClass();
+        currentModelClass();
         return service.insert(CopyUtils.copyObject(a, dtoClazz));
     }
 
     protected T modify(A a) {
-        currentModleClass();
+        currentModelClass();
         return service.update(CopyUtils.copyObject(a, dtoClazz), null);
     }
 
@@ -111,6 +111,8 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
      */
     protected Conditions pageConditions(A a){
         Conditions conditions = new Conditions();
+        conditions.setPageNum(a.getPageNum());
+        conditions.setPageSize(a.getPageSize());
         conditions.addOrders(Order.desc(BaseAo.CREATE_TIME));
         return conditions;
     }

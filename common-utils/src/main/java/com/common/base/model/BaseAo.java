@@ -1,5 +1,6 @@
 package com.common.base.model;
 
+import com.common.base.consts.PageParams;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -15,9 +16,9 @@ public class BaseAo implements Serializable {
 
     public static final String CREATE_TIME = "createTime";
 
-    private Integer pageNum;
+    private Integer pageNum = PageParams.PAGE_NUM;
 
-    private Integer pageSize;
+    private Integer pageSize = PageParams.PAGE_SIZE;
 
     private Long primaryKey;
 

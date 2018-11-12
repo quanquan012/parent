@@ -1,5 +1,6 @@
 package com.common.base.condition;
 
+import com.common.base.consts.PageParams;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -15,6 +16,10 @@ import java.util.List;
  */
 @Data
 public class Conditions {
+
+    private Integer pageNum = PageParams.PAGE_NUM;
+
+    private Integer pageSize = PageParams.PAGE_SIZE;
 
     private List<SearchFilter> searchFilters;
 
