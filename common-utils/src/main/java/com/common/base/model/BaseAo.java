@@ -1,6 +1,8 @@
 package com.common.base.model;
 
 import com.common.base.consts.PageParams;
+import com.common.web.serializer.DateNullSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -28,5 +30,6 @@ public class BaseAo implements Serializable {
             pattern = "yyyy-MM-dd HH:mm:ss",
             timezone = "GMT+8"
     )
+    @JsonSerialize(nullsUsing = DateNullSerializer.class)
     private Date createTime;
 }

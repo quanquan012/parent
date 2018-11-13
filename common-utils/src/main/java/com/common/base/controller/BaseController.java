@@ -110,11 +110,7 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
      * @return 分页查询条件
      */
     protected Conditions pageConditions(A a){
-        Conditions conditions = new Conditions();
-        conditions.setPageNum(a.getPageNum());
-        conditions.setPageSize(a.getPageSize());
-        conditions.addOrders(Order.desc(BaseAo.CREATE_TIME));
-        return conditions;
+        return null;
     }
 
 }
