@@ -24,8 +24,13 @@ public class MerchantController extends BaseController<MerchantAo, MerchantDto, 
     protected Conditions pageConditions(MerchantAo merchantAo){
         Conditions conditions = new Conditions();
         conditions.addOrders(Order.desc(BaseAo.CREATE_TIME));
-        conditions.addSearchFilters(SearchFilter.gt(BaseAo.CREATE_TIME, merchantAo.getCreateTime()));
+        conditions.setPageNum(merchantAo.getPageNum());
+        conditions.setPageSize(merchantAo.getPageSize());
+        if(null != merchantAo.getCreateTime()){
+            conditions.addSearchFilters(SearchFilter.gt(BaseAo.CREATE_TIME, merchantAo.getCreateTime()));
+        }
         return conditions;
     }
+
 
 }
