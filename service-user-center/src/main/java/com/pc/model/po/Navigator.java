@@ -14,4 +14,13 @@ public class Navigator extends BaseModel {
     @Column(name = "navigator_path")
     private String navigatorPath;
 
+    @Column(name = "navigator_code")
+    private String navigatorCode;
+
+    @Column(name = "parent_code")
+    private String parentCode;
+
+    @Column(name = "navigator_icon")
+    private String navigatorIcon;
+
 }

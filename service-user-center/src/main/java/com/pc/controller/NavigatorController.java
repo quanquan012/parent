@@ -7,6 +7,7 @@ import com.pc.service.NavigatorService;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -19,22 +20,40 @@ import java.util.List;
 public class NavigatorController extends BaseController<NavigatorAo, NavigatorDto, NavigatorService> {
     @Override
     protected List<NavigatorDto> listAll() {
-        return service.selectList(searchConditions());
+        return tree(service.selectList(searchConditions()));
+    }
+
+    private List<NavigatorDto> child(List<NavigatorDto> roots, List<NavigatorDto> list) {
+        for (NavigatorDto dto : roots) {
+            Iterator<NavigatorDto> iterator = list.iterator();
+            List children = dto.getChildren();
+            while (iterator.hasNext()){
+                NavigatorDto child = iterator.next();
+                if(dto.getNavigatorCode().equals(child.getParentCode())){
+                    children.add(child);
+                    iterator.remove();
+                }
+            }
+            child(children, list);
+        }
+
+        return roots;
     }
 
     private List<NavigatorDto> tree(List<NavigatorDto> list) {
-        ArrayList<NavigatorDto> children;
-        ArrayList<NavigatorDto> newList;
-        if (list.isEmpty()) {
-            newList = new ArrayList<>();
-            for (NavigatorDto dto : list) {
-                if("0".equals(dto.getNavigatorCode())){
-
+        List<NavigatorDto> roots = null;
+        if (!list.isEmpty()) {
+            roots = new ArrayList<>();
+            Iterator<NavigatorDto> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                NavigatorDto dto = iterator.next();
+                if ("0".equals(dto.getParentCode())) {
+                    roots.add(dto);
+                    iterator.remove();
                 }
             }
-            children = new ArrayList<>();
+            roots = child(roots, list);
         }
-
-        return null;
+        return roots;
     }
 }
