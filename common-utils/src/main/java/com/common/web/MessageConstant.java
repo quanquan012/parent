@@ -16,7 +16,7 @@ public interface MessageConstant {
     String MESSAGE_ERROR_OPERATION = "message.error.operation";
     String MESSAGE_ERROR_VERIFY_CODE = "message.error.verify.code";
     String MESSAGE_RRROT_VERIFY_CODE_TIME_OUT = "message.error.verify.code.time.out";
-    String NO_DATA_WAS_FOUND = "no.data.wa.found";
+    String NO_DATA_WAS_FOUND = "no.data.was.found";
     String FEGIN_API_ERROR = "fegin_api_error";
 
 }
