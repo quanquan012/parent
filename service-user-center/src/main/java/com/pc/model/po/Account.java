@@ -3,6 +3,8 @@ package com.pc.model.po;
 import com.common.base.model.BaseModel;
 import lombok.Data;
 
+import javax.persistence.Column;
+
 /**
  * account model
  *
@@ -12,10 +14,19 @@ import lombok.Data;
 @Data
 public class Account extends BaseModel {
 
+    @Column(name = "account_name")
     private String accountName;
 
+    @Column(name = "account_pass")
     private String accountPass;
 
+    @Column(name = "account_code")
+    private String accountCode;
+
+    @Column(name = "account_phone")
+    private String accountPhone;
+
+    @Column(name = "salt")
     private String salt;
 
 }

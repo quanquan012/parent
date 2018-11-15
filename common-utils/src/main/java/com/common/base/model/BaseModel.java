@@ -2,6 +2,7 @@ package com.common.base.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -30,5 +31,8 @@ public class BaseModel {
             pattern = "yyyy-MM-dd HH:mm:ss"
     )
     private Date createTime;
+
+    @Value("application.version")
+    private String version;
 
 }

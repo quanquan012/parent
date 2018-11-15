@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- *
+ * TODO druid with gateway route
  *
  * @author li.hao
  * @date 2018/11/13 16:33
  */
-//@Configuration
+@Configuration
 public class DruidConfiguration {
     @Bean
     public ServletRegistrationBean DruidStatViewServle2() {

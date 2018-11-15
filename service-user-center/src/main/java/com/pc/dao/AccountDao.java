@@ -1,10 +1,10 @@
 package com.pc.dao;
 
+import com.common.base.dao.BaseDao;
 import com.pc.model.po.Account;
 import org.springframework.stereotype.Repository;
-import tk.mybatis.mapper.common.Mapper;
 
 @Repository
-public interface AccountDao extends Mapper<Account> {
+public interface AccountDao extends BaseDao<Account> {
 
 }

@@ -22,17 +22,18 @@ import java.util.HashMap;
  * @date 2018/11/15 10:06
  */
 @RestController
+@RequestMapping("/login")
 public class LoginController extends StandardController {
 
     @Autowired
     private LoginService loginService;
 
-    @PostMapping("/login")
+    @PostMapping
     public Object what(@RequestBody AccountAo accountAo) {
         AccountDto dto = checkAccountByPass(accountAo);
         if (null != dto) {
             String jwt = JwtUtils.generateToken(dto.getAccountName());
-            return new HashMap<String,String>(){{
+            return new HashMap<String, String>() {{
                 put("token", jwt);
             }};
         }
@@ -46,8 +47,8 @@ public class LoginController extends StandardController {
         return null;
     }
 
-    @RequestMapping(value = "/login", method= RequestMethod.OPTIONS)
-    public void options(){
+    @RequestMapping(method = RequestMethod.OPTIONS)
+    public void options() {
 
     }
 
