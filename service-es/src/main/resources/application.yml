@@ -1,16 +1,19 @@
-server:
-  port: 8010
-
 spring:
   application:
-    name: service-config
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/quanquan012/configuration/
-          search-paths: service-user-center,service-zuul
-      label: master
+    name: service-es
+  data:
+    elasticsearch:
+      cluster-name: service-es
+      cluster-nodes: 47.99.195.142:9300
+    repositories:
+      enable: true
+
+ribbon:
+  eureka:
+    enabled: true
+
+server:
+  port: 8082
 
 eureka:
   instance:
