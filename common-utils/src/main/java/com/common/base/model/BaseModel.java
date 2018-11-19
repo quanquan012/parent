@@ -32,7 +32,6 @@ public class BaseModel {
     )
     private Date createTime;
 
-    @Value("application.version")
-    private String version;
+    private long version;
 
 }

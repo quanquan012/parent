@@ -8,6 +8,7 @@ import com.common.base.model.BaseAo;
 import com.pc.model.ao.AccountAo;
 import com.pc.model.dto.AccountDto;
 import com.pc.service.AccountService;
+import com.pc.utils.SearchFilterUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,13 +23,7 @@ public class AccountController extends BaseController<AccountAo, AccountDto, Acc
      */
     @Override
     protected Conditions pageConditions(AccountAo accountAo){
-        Conditions conditions = new Conditions();
-        conditions.addOrders(Order.desc(BaseAo.CREATE_TIME));
-        conditions.setPageNum(accountAo.getPageNum());
-        conditions.setPageSize(accountAo.getPageSize());
-        if(null != accountAo.getCreateTime()){
-            conditions.addSearchFilters(SearchFilter.gt(BaseAo.CREATE_TIME, accountAo.getCreateTime()));
-        }
-        return conditions;
+        return SearchFilterUtils.pageConditionWithDateGt(accountAo);
     }
+
 }

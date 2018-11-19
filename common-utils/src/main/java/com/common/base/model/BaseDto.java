@@ -17,4 +17,6 @@ public class BaseDto {
             timezone = "GMT+8"
     )
     private Date createTime;
+
+    private long version;
 }

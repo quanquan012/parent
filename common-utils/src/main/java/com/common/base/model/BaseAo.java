@@ -16,6 +16,8 @@ import java.util.Date;
 @Data
 public class BaseAo implements Serializable {
 
+    public static final String PRIMARY_KEY = "primaryKey";
+
     public static final String CREATE_TIME = "createTime";
 
     private Integer pageNum = PageParams.PAGE_NUM;
@@ -32,4 +34,7 @@ public class BaseAo implements Serializable {
     )
     @JsonSerialize(nullsUsing = DateNullSerializer.class)
     private Date createTime;
+
+    private long version;
+
 }

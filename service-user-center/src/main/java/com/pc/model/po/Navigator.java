@@ -23,4 +23,7 @@ public class Navigator extends BaseModel {
     @Column(name = "navigator_icon")
     private String navigatorIcon;
 
+    @Column(name = "priority")
+    private long priority;
+
 }

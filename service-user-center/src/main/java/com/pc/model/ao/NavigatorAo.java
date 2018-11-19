@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class NavigatorAo extends BaseAo {
 
+    public static final String PRIORITY = "priority";
+
     private String navigatorName;
 
     private String navigatorPath;

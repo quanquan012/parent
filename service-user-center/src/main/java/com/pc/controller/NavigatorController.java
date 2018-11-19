@@ -1,5 +1,8 @@
 package com.pc.controller;
 
+import com.common.base.condition.Conditions;
+import com.common.base.condition.Order;
+import com.common.base.condition.SearchFilter;
 import com.common.base.controller.BaseController;
 import com.pc.model.ao.NavigatorAo;
 import com.pc.model.dto.NavigatorDto;
@@ -56,4 +59,12 @@ public class NavigatorController extends BaseController<NavigatorAo, NavigatorDt
         }
         return roots;
     }
+
+    @Override
+    protected Conditions searchConditions(){
+        Conditions conditions = new Conditions();
+        conditions.addOrders(Order.asc(NavigatorAo.PRIORITY));
+        return conditions;
+    }
+
 }

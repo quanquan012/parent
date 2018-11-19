@@ -8,6 +8,7 @@ import com.common.base.model.BaseAo;
 import com.pc.model.ao.MerchantAo;
 import com.pc.model.dto.MerchantDto;
 import com.pc.service.MerchantService;
+import com.pc.utils.SearchFilterUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,15 +23,7 @@ public class MerchantController extends BaseController<MerchantAo, MerchantDto, 
      */
     @Override
     protected Conditions pageConditions(MerchantAo merchantAo){
-        Conditions conditions = new Conditions();
-        conditions.addOrders(Order.desc(BaseAo.CREATE_TIME));
-        conditions.setPageNum(merchantAo.getPageNum());
-        conditions.setPageSize(merchantAo.getPageSize());
-        if(null != merchantAo.getCreateTime()){
-            conditions.addSearchFilters(SearchFilter.gt(BaseAo.CREATE_TIME, merchantAo.getCreateTime()));
-        }
-        return conditions;
+        return SearchFilterUtils.pageConditionWithDateGt(merchantAo);
     }
-
 
 }

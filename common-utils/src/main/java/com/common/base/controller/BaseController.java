@@ -72,7 +72,7 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
         return warnMessage(MessageConstant.MESSAGE_ERROR_DELETE);
     }
 
-    protected PageInfo<T> searchPage(A a){
+    protected PageInfo<T> searchPage(A a) {
         currentModelClass();
         return service.page(CopyUtils.copyObject(a, dtoClazz), pageConditions(a));
     }
@@ -88,7 +88,7 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
 
     protected T modify(A a) {
         currentModelClass();
-        return service.update(CopyUtils.copyObject(a, dtoClazz), null);
+        return service.update(CopyUtils.copyObject(a, dtoClazz), updateConditions(a));
     }
 
     protected int deleteByPrimaryKey(Long id) {
@@ -100,7 +100,7 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
      *
      * @return 条件查询
      */
-    protected Conditions searchConditions(){
+    protected Conditions searchConditions() {
         return null;
     }
 
@@ -109,8 +109,19 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
      *
      * @return 分页查询条件
      */
-    protected Conditions pageConditions(A a){
+    protected Conditions pageConditions(A a) {
         return null;
+    }
+
+    /**
+     * 数据主键更新条件
+     *
+     * @return 分页查询条件
+     */
+    protected Conditions updateConditions(A a) {
+        Conditions conditions = new Conditions();
+        conditions.addSearchFilters(SearchFilter.eq(BaseAo.PRIMARY_KEY, a.getPrimaryKey()));
+        return conditions;
     }
 
 }
