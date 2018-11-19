@@ -17,7 +17,7 @@ import java.io.InputStream;
  * @author: li.hao
  * @date: 2018/11/01 14:38
  */
-@Component
+//@Component
 public class UserCenterFallback implements FallbackProvider {
 
     private final Logger logger = LoggerFactory.getLogger(UserCenterFallback.class);

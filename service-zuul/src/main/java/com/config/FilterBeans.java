@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
  * @author: li.hao
  * @date: 2018/11/01 11:17
  */
-@Configuration
+//@Configuration
 public class FilterBeans {
 
-    @Bean
+//    @Bean
     public TokenFilter tokenFilter() {
         return new TokenFilter();
     }
