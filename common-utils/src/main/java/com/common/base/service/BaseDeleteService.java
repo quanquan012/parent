@@ -20,6 +20,6 @@ public interface BaseDeleteService<T extends BaseDto> {
      * @param conditions 删除条件
      * @return 数据库执行结果
      */
-    int deleteByConditions(T t, Conditions conditions);
+    int deleteByConditions(Conditions conditions);
 
 }

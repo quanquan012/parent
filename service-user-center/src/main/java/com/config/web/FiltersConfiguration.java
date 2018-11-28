@@ -14,6 +14,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FiltersConfiguration {
 
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter(){
+        return new JwtAuthenticationFilter();
+    }
+
     /**
      * JWT filter registration
      *
@@ -22,8 +27,7 @@ public class FiltersConfiguration {
     @Bean
     public FilterRegistrationBean filterJwtAuthentication() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        JwtAuthenticationFilter filter = new JwtAuthenticationFilter();
-        registrationBean.setFilter(filter);
+        registrationBean.setFilter(jwtAuthenticationFilter());
         return registrationBean;
     }
 

@@ -1,11 +1,13 @@
 package com.config.jwt;
 
 import com.common.utils.jwt.JwtUtils;
+import com.common.utils.redis.RedisUtil;
+import com.pc.model.consts.LoginConsts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -22,11 +24,10 @@ import java.util.Map;
  * @date 2018/11/15 10:22
  */
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
+    @Autowired
+    private RedisUtil redisUtil;
     private static final Logger jwtlogger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
-
     private static final PathMatcher pathMatcher = new AntPathMatcher();
-
     private static final String OPTIONS = "OPTIONS";
 
     @Override
@@ -34,7 +35,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String reuqestType = request.getMethod();
             if (!isLoginUrl(request) && !OPTIONS.equals(reuqestType)) {
-                String token = request.getHeader("token");
+                String token = request.getHeader(LoginConsts.TOKEN);
+                if (!redisUtil.hasKey(token)) {
+                    response.sendRedirect("/login");
+                }
                 Map<String, Object> map = JwtUtils.validateToken(token);
                 jwtlogger.info("account: " + map.get("account") + " access successed !");
             }
@@ -48,5 +52,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private boolean isLoginUrl(HttpServletRequest request) {
         return pathMatcher.match("/login", request.getServletPath());
     }
-
 }

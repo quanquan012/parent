@@ -3,10 +3,11 @@ package com.common.base.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class BaseDto {
+public class BaseDto implements Serializable {
 
     private Long primaryKey;
 

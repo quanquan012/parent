@@ -15,6 +15,14 @@ public interface BaseSelectService<T extends BaseDto> {
     List<T> selectAll();
 
     /**
+     * 根据主键查询
+     *
+     * @param id
+     * @return
+     */
+    T selectByPrimaryKey(Long id);
+
+    /**
      * 根据条件查询
      *
      * @param conditions 搜索条件

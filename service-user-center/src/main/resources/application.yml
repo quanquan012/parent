@@ -11,22 +11,28 @@ spring:
     host: 47.99.195.142
     port: 6379
     password: abcd1234
+    timeout: 3000ms
+    database: 0
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
 
-ribbon:
-  eureka:
-    enabled: true
+
+#ribbon:
+#  eureka:
+#    enabled: true
 
 server:
-  port: 8081
+  port: 8091
 
 eureka:
   instance:
-    hostName: localhost
     lease-expiration-duration-in-seconds: 10
     lease-renewal-interval-in-seconds: 30
   client:
-    healthcheck:
-      enabled: false
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/
 

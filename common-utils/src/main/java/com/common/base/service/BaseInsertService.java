@@ -2,6 +2,8 @@ package com.common.base.service;
 
 import com.common.base.model.BaseDto;
 
+import java.util.List;
+
 public interface BaseInsertService<T extends BaseDto> {
 
     /**
@@ -11,5 +13,7 @@ public interface BaseInsertService<T extends BaseDto> {
      * @return 数据库中插入的实体Model
      */
     T insert(T t);
+
+    int insertList(List<T> list);
 
 }

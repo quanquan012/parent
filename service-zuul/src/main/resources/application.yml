@@ -7,12 +7,11 @@ server:
 
 eureka:
   instance:
-    hostName: localhost
     lease-expiration-duration-in-seconds: 10
     lease-renewal-interval-in-seconds: 30
   client:
-    healthcheck:
-      enabled: false
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/
 
@@ -21,7 +20,7 @@ zuul:
     usercenter:
       path: /usercenter/**
       serviceId: service-user-center
+  ribbon:
+    eager-load:
+      enabled: true
 
-ribbon:
-  ReadTimeout: 60000
-  ConnectTimeout: 60000

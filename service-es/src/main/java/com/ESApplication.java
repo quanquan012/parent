@@ -7,7 +7,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @SpringCloudApplication
 public class ESApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(ESApplication.class, args);
     }
+
 }

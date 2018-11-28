@@ -1,12 +1,15 @@
 spring:
   application:
     name: service-es
-  data:
-    elasticsearch:
-      cluster-name: service-es
-      cluster-nodes: 47.99.195.142:9300
-    repositories:
-      enable: true
+#  data:
+#    elasticsearch:
+#      cluster-name: service-es
+#      cluster-nodes: 47.99.195.142:9300
+#    repositories:
+#      enable: true
+
+es:
+  hosts: ['127.0.0.1:8080','127.0.0.2:8080']
 
 ribbon:
   eureka:
