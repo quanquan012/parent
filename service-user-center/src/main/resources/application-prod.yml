@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: service-user-center
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://47.99.195.142:3306/broker?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: abcd1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 47.110.73.43
+    port: 6379
+    password: abcd1234
+    timeout: 3000ms
+    database: 0
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+
+
+#ribbon:
+#  eureka:
+#    enabled: true
+
+server:
+  port: 8091
+
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 10
+    lease-renewal-interval-in-seconds: 30
+    ip-address: 47.110.73.43
+    prefer-ip-address: true
+#    instance-id: ${eureka.instance.ip-address}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://47.110.73.43:8080/eureka/
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.wx.dao
+
+mapper:
+  not-empty: false
+  identity: MYSQL
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+logging:
+  level:
+    com.* : debug
