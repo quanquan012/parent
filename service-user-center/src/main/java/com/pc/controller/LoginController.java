@@ -62,8 +62,8 @@ public class LoginController extends StandardController {
      * @return AccountDto
      */
     private AccountDto checkAccountByPass(AccountAo accountAo) {
-        if (!StringUtils.isEmpty(accountAo.getAccountName()) && !StringUtils.isEmpty(accountAo.getAccountPass())) {
-            return loginService.login(accountAo.getAccountName(), accountAo.getAccountPass());
+        if (!StringUtils.isEmpty(accountAo.getAccountNumber()) && !StringUtils.isEmpty(accountAo.getAccountPass())) {
+            return loginService.login(accountAo.getAccountNumber(), accountAo.getAccountPass());
         }
         return null;
     }

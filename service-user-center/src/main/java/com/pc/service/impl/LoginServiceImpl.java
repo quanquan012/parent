@@ -23,9 +23,9 @@ public class LoginServiceImpl implements LoginService {
     private AccountDao mapper;
 
     @Override
-    public AccountDto login(String accountName, String accountPass) {
+    public AccountDto login(String accountNumber, String accountPass) {
         Account account = new Account();
-        account.setAccountName(accountName);
+        account.setAccountNumber(accountNumber);
         List<Account> accounts = mapper.select(account);
         if (!accounts.isEmpty() && accounts.size() == 1) {
             account = accounts.get(0);

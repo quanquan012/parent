@@ -6,5 +6,7 @@ package com.pc.model.consts;
  */
 public class AccountConsts {
     public static final String ACCOUNT_CODE = "accountCode";
+    public static final String ACCOUNT_PHONE = "accountPhone";
+    public static final String ACCOUNT_NAME = "accountName";
 
 }

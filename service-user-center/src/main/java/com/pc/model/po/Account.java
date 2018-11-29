@@ -17,6 +17,9 @@ public class Account extends BaseModel {
     @Column(name = "account_name")
     private String accountName;
 
+    @Column(name = "account_number")
+    private String accountNumber;
+
     @Column(name = "account_pass")
     private String accountPass;
 

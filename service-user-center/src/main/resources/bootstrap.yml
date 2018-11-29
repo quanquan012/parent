@@ -1,9 +1,0 @@
-spring:
-  cloud:
-    config:
-      name: service-config
-      profile: dev
-      uri: http://localhost:8010/
-      label: master
-      discovery:
-        service-id: service-config

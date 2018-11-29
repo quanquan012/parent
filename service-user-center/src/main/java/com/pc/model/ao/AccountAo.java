@@ -16,6 +16,8 @@ public class AccountAo extends BaseAo {
 
     private String accountName;
 
+    private String accountNumber;
+
     private String accountPass = "123";
 
     private String accountCode;
