@@ -1,27 +1,3 @@
 spring:
-  application:
-    name: service-zuul-new
-
-server:
-  port: 8090
-
-eureka:
-  instance:
-    lease-expiration-duration-in-seconds: 10
-    lease-renewal-interval-in-seconds: 30
-    ip-address: 47.99.195.142
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      defaultZone: http://47.110.73.43:8080/eureka/
-
-zuul:
-  routes:
-    usercenter:
-      path: /usercenter/**
-      serviceId: service-user-center
-  ribbon:
-    eager-load:
-      enabled: true
-
-
+  profiles:
+    active: dev
