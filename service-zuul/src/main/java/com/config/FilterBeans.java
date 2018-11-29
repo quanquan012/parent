@@ -1,8 +1,6 @@
 package com.config;
 
 import com.filter.TokenFilter;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @author: li.hao
