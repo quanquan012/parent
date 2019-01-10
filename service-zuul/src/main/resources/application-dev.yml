@@ -20,6 +20,9 @@ zuul:
     usercenter:
       path: /usercenter/**
       serviceId: service-user-center
+    userclient:
+      path: /userclient/**
+      serviceId: service-user-client
   ribbon:
     eager-load:
       enabled: true

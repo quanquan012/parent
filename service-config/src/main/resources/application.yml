@@ -9,7 +9,7 @@ spring:
       server:
         git:
           uri: https://github.com/quanquan012/configuration/
-          search-paths: service-user-center,service-zuul
+          search-paths: service-user-center,service-zuul,service-eureka
       label: master
 
 eureka:
