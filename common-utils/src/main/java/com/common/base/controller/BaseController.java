@@ -1,7 +1,6 @@
 package com.common.base.controller;
 
 import com.common.base.condition.Conditions;
-import com.common.base.condition.Order;
 import com.common.base.condition.SearchFilter;
 import com.common.base.model.BaseAo;
 import com.common.base.model.BaseDto;
@@ -10,6 +9,7 @@ import com.common.web.Message;
 import com.common.web.MessageConstant;
 import com.common.utils.model.CopyUtils;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,16 +39,19 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
     }
 
     @GetMapping(params = "type=page")
+    @ApiOperation(value = "base page", notes = "基础封装分页")
     public Message page(A a) {
         return successMessage(searchPage(a));
     }
 
     @GetMapping
+    @ApiOperation(value = "base list", notes = "基础封装查询所有")
     public Message list() {
         return successMessage(listAll());
     }
 
     @PostMapping
+    @ApiOperation(value = "base save", notes = "基础封装新增")
     public Message save(@RequestBody A a) {
         if (null != insert(a)) {
             return successMessage(MessageConstant.MESSAGE_SUCCESS_SAVE);
@@ -57,6 +60,7 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
     }
 
     @PutMapping
+    @ApiOperation(value = "base update", notes = "基础封装更新")
     public Message update(@RequestBody A a) {
         if (null != modify(a)) {
             return successMessage(MessageConstant.MESSAGE_SUCCESS_UPDATE);
@@ -65,6 +69,7 @@ public abstract class BaseController<A extends BaseAo, T extends BaseDto, S exte
     }
 
     @DeleteMapping(value = "/{id}")
+    @ApiOperation(value = "base delete", notes = "基础封装根据主键删除")
     public Message delete(@PathVariable("id") Long id) {
         if (deleteByPrimaryKey(id) > 0) {
             return successMessage(MessageConstant.MESSAGE_SUCCESS_DELETE);

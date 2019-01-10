@@ -18,5 +18,8 @@ public interface MessageConstant {
     String MESSAGE_RRROT_VERIFY_CODE_TIME_OUT = "message.error.verify.code.time.out";
     String NO_DATA_WAS_FOUND = "no.data.was.found";
     String FEGIN_API_ERROR = "fegin_api_error";
+    String SYSTEM_BUSY = "system.is.busy";
+
+    String SOCKET_CONNECTED = "socket.is.connected";
 
 }

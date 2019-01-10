@@ -24,6 +24,7 @@ import redis.clients.jedis.JedisPoolConfig;
 @Configuration
 @AutoConfigureAfter(CrossOriginResourceSharingConfiguration.class)
 public class RedisConfiguration {
+
     @Autowired
     private JedisConfig jedisConfig;
 
@@ -65,4 +66,5 @@ public class RedisConfiguration {
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         return template;
     }
+
 }

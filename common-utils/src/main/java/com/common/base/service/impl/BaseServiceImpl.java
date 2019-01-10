@@ -24,12 +24,9 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M extends BaseDao<D>> implements BaseService<T> {
-
     @Autowired
     protected M mapper;
-
     private Class<T> dtoClazz;
-
     private Class<D> modelClazz;
 
     protected void currentModelClass() {
@@ -44,7 +41,7 @@ public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M 
     @Override
     public PageInfo<T> page(T t, Conditions conditions) {
         currentModelClass();
-        Example example = ConditionsUtils.getExampleByConditions(conditions,modelClazz);
+        Example example = ConditionsUtils.getExampleByConditions(conditions, modelClazz);
         PageInfo<T> pageInfo = PageHelper.startPage(conditions.getPageNum(), conditions.getPageSize()).doSelectPageInfo(() -> mapper.selectByExample(example));
         return pageInfo;
     }
@@ -57,7 +54,7 @@ public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M 
     }
 
     @Override
-    public T selectByPrimaryKey(Long id){
+    public T selectByPrimaryKey(Long id) {
         currentModelClass();
         return CopyUtils.copyObject(mapper.selectByPrimaryKey(id), dtoClazz);
     }
@@ -86,9 +83,9 @@ public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M 
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public int insertList(List<T> list){
+    public int insertList(List<T> list) {
         currentModelClass();
-        int result = mapper.insertList(CopyUtils.copyList(list,modelClazz));
+        int result = mapper.insertList(CopyUtils.copyList(list, modelClazz));
         return result;
     }
 
@@ -120,5 +117,4 @@ public abstract class BaseServiceImpl<T extends BaseDto, D extends BaseModel, M 
         int result = mapper.deleteByExample(ConditionsUtils.getExampleByConditions(conditions, modelClazz));
         return result;
     }
-
 }
