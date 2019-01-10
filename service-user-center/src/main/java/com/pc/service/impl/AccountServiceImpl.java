@@ -9,4 +9,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountServiceImpl extends BaseServiceImpl<AccountDto, Account, AccountDao> implements AccountService {
+
 }

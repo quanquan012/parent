@@ -41,7 +41,7 @@ eureka:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.wx.dao
+  type-aliases-package: com.client.dao
 
 mapper:
   not-empty: false

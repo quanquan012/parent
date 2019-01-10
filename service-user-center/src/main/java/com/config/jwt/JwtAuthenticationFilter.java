@@ -36,11 +36,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String reuqestType = request.getMethod();
             if (!isLoginUrl(request) && !OPTIONS.equals(reuqestType)) {
                 String token = request.getHeader(LoginConsts.TOKEN);
-                if (!redisUtil.hasKey(token)) {
+                if (null == token || !redisUtil.hasKey(token)) {
                     response.sendRedirect("/login");
+                } else {
+                    Map<String, Object> map = JwtUtils.validateToken(token);
+                    jwtlogger.info("account: " + map.get("account") + " access successed !");
                 }
-                Map<String, Object> map = JwtUtils.validateToken(token);
-                jwtlogger.info("account: " + map.get("account") + " access successed !");
             }
         } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
