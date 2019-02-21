@@ -1,6 +1,8 @@
 package com.common.web;
 
 public interface MessageConstant {
+    String MESSAGE_EXCEPTION_BUSINESS = "message.exception.business";
+
     String MESSAGE_SUCCESS_SAVE = "message.success.save";
     String MESSAGE_SUCCESS_DELETE = "message.success.delete";
     String MESSAGE_SUCCESS_UPDATE = "message.success.update";
@@ -17,7 +19,7 @@ public interface MessageConstant {
     String MESSAGE_ERROR_VERIFY_CODE = "message.error.verify.code";
     String MESSAGE_RRROT_VERIFY_CODE_TIME_OUT = "message.error.verify.code.time.out";
     String NO_DATA_WAS_FOUND = "no.data.was.found";
-    String FEGIN_API_ERROR = "fegin_api_error";
+    String FEGIN_API_ERROR = "feign.api.error";
     String SYSTEM_BUSY = "system.is.busy";
 
     String SOCKET_CONNECTED = "socket.is.connected";
